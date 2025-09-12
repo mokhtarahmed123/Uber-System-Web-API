@@ -1,0 +1,34 @@
+﻿using System.ComponentModel.DataAnnotations;
+using Uber.Uber.Domain.Entities.Enums;
+
+namespace Uber.Uber.Application.DTOs.OrderDTO
+{
+    public class OrderDetailsDTO
+    {
+
+        [Display(Name = " Order ID  ")]
+
+        public int OrderId { get; set; }
+
+        [Display(Name = " Customer Email  ")]
+        public string CustomerEmail { get; set; }
+
+        [Display(Name = " Merchant Email")]
+        public string? MerchantEmail { get; set; }
+        [Display(Name = " Item Name")]
+
+        public string ItemName { get; set; }
+        [Display(Name = " Total Amount ")]
+        public int TotalAmount { get; set; }
+        [Display(Name = " Item  Price ")]
+        public decimal ItemPrice { get; set; }
+
+        [Display(Name = " Total Price ")]
+        public decimal TotalPrice { get; set; }
+
+
+        [Display(Name = " Statue Of Order  ")]
+        public OrderStatus Status { get; set; }
+
+    }
+}
