@@ -1,0 +1,20 @@
+{
+  "Version": 1,
+  "Hash": "HgvALBcWbi2rbjvYfBYtOD3Ew8o+jMQyaI6f9L11FkM=",
+  "Source": "Uber",
+  "BasePath": "_content/Uber",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Uber\\wwwroot",
+      "Source": "Uber",
+      "ContentRoot": "C:\\Courses\\Web Devolpment\\.NET\\Projects .net\\Uber\\Uber\\Uber\\wwwroot\\",
+      "BasePath": "_content/Uber",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,4374 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Uber System",
+    "description": " Uber",
+    "contact": {
+      "name": "Uber",
+      "email": "Uber@Gmail.com"
+    },
+    "version": "v2"
+  },
+  "paths": {
+    "/api/Category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Check if Category API is working",
+        "responses": {
+          "200": {
+            "description": "Category API is working."
+          }
+        }
+      }
+    },
+    "/api/Category/AddCategory": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Creates a new Category",
+        "description": "This endpoint allows you to create a new category and store it in the database.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category Added Successfully"
+          },
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "500": {
+            "description": "An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/api/Category/GetAll": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get all categories",
+        "description": "Retrieve all categories from the database.",
+        "responses": {
+          "200": {
+            "description": "List of categories returned successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Category/GetByID/{ID}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get category by ID",
+        "description": "Retrieve a specific category by its ID.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category found successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID must be greater than 0"
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/api/Category/GetCategoryWithItems/{ID}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get category with items",
+        "description": "Retrieve a category and all its related items.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category with items found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryWithItems"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryWithItems"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryWithItems"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID must be greater than 0"
+          },
+          "404": {
+            "description": "Category or items not found"
+          }
+        }
+      }
+    },
+    "/api/Category/UpdateCategory/{ID}": {
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Update a category",
+        "description": "Update an existing category using its ID.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateCategoryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated successfully"
+          },
+          "400": {
+            "description": "Invalid data or ID"
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Category/DeleteCategory/{ID}": {
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Delete a category",
+        "description": "Delete a specific category using its ID.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted successfully"
+          },
+          "400": {
+            "description": "ID must be greater than 0"
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/api/Complaint": {
+      "get": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Check if Complaint API is working",
+        "responses": {
+          "200": {
+            "description": "Complaint API is working."
+          }
+        }
+      }
+    },
+    "/api/Complaint/Create": {
+      "post": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Create a new complaint",
+        "description": "This endpoint allows you to create a new complaint and store it in the database.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateComplaintsdto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateComplaintsdto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateComplaintsdto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complaint created successfully"
+          },
+          "400": {
+            "description": "Invalid request body"
+          },
+          "500": {
+            "description": "An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/api/Complaint/Delete/{id} ": {
+      "delete": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Delete a complaint by ID",
+        "description": "Deletes a specific complaint using its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complaint deleted successfully"
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Complaint not found"
+          },
+          "500": {
+            "description": "Unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/api/Complaint/GetcomplaintById/{id}": {
+      "get": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Get complaint by ID",
+        "description": "Retrieve a complaint using its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complaint retrieved successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateComplaintsdto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateComplaintsdto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateComplaintsdto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Complaint not found"
+          }
+        }
+      }
+    },
+    "/api/Complaint/GetAll Complaints": {
+      "get": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Get all complaints",
+        "description": "Retrieve a list of all complaints.",
+        "responses": {
+          "200": {
+            "description": "List of complaints returned successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Complaint/Resolve/{id}": {
+      "put": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Resolve a complaint",
+        "description": "Mark a complaint as resolved using its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveComplaintDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveComplaintDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveComplaintDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complaint resolved successfully"
+          },
+          "400": {
+            "description": "Invalid ID or data"
+          },
+          "404": {
+            "description": "Complaint not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Complaint/Search": {
+      "get": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Search complaints",
+        "description": "Search complaints using filters like status, date, and keywords.",
+        "parameters": [
+          {
+            "name": "FromUserEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AgainstEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TripID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IsResolved",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search completed successfully"
+          },
+          "400": {
+            "description": "Invalid search parameters"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Complaint/Update/{id}": {
+      "put": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Update a complaint",
+        "description": "Update an existing complaint using its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateComplaintsdto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateComplaintsdto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateComplaintsdto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complaint updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID or data"
+          },
+          "404": {
+            "description": "Complaint not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Complaint/GetComplaintsByCustomer": {
+      "get": {
+        "tags": [
+          "Complaint"
+        ],
+        "summary": "Get All  Complaints For Authorize User ",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Delivery": {
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Check if Delivery API is working",
+        "responses": {
+          "200": {
+            "description": "Delivery API is working."
+          }
+        }
+      }
+    },
+    "/api/Delivery/CreateDelivery": {
+      "post": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Create a delivery without an order",
+        "description": "This endpoint creates a delivery that is not linked to an order.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeliveryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeliveryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeliveryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Delivery created successfully"
+          },
+          "400": {
+            "description": "Invalid request body"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Delivery/GetDeliveriesByStatus": {
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Get deliveries by status",
+        "description": "Retrieve all deliveries filtered by their current status.",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/DeliveryStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of deliveries by status returned successfully"
+          },
+          "400": {
+            "description": "Invalid status provided"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Delivery/GetDeliveryByIdAsync/{id}": {
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Get a delivery by ID",
+        "description": "Retrieve a specific delivery using its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delivery retrieved successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeliveryDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeliveryDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeliveryDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Delivery not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Delivery/ListDeliveries": {
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Get all deliveries",
+        "description": "Retrieve a list of all deliveries.",
+        "responses": {
+          "200": {
+            "description": "List of deliveries retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Delivery/SearchDeliveriesAsync": {
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Search deliveries",
+        "description": "Search deliveries using filters like status, driver, and date range.",
+        "parameters": [
+          {
+            "name": "DriverEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deliveries found successfully"
+          },
+          "400": {
+            "description": "Invalid search parameters"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Delivery/UpdateDelivery/{id}": {
+      "put": {
+        "tags": [
+          "Delivery"
+        ],
+        "summary": "Update delivery details",
+        "description": "Update the details of an existing delivery without changing the order.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDeliveryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDeliveryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDeliveryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Delivery updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID or request body"
+          },
+          "404": {
+            "description": "Delivery not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/DriverProfile": {
+      "get": {
+        "tags": [
+          "DriverProfile"
+        ],
+        "summary": "Check Driver Profile API health",
+        "description": "Simple check endpoint.",
+        "responses": {
+          "200": {
+            "description": "Driver Profile API is working."
+          }
+        }
+      }
+    },
+    "/api/DriverProfile/CreateDriverProfile": {
+      "post": {
+        "tags": [
+          "DriverProfile"
+        ],
+        "summary": "Create a new driver profile",
+        "description": "Creates a new driver profile using provided data.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDriverProfile"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDriverProfile"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDriverProfile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Driver profile created successfully"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/DriverProfile/DeleteDriverProfile/{id}": {
+      "delete": {
+        "tags": [
+          "DriverProfile"
+        ],
+        "summary": "Delete driver profile",
+        "description": "Deletes a driver profile by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Driver profile deleted successfully"
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Driver profile not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/DriverProfile/GetAll": {
+      "get": {
+        "tags": [
+          "DriverProfile"
+        ],
+        "summary": "Get all driver profiles",
+        "description": "Fetches all driver profiles.",
+        "responses": {
+          "200": {
+            "description": "Driver profiles fetched successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/DriverProfile/GetDetailsByEmail/{Email}": {
+      "get": {
+        "tags": [
+          "DriverProfile"
+        ],
+        "summary": "Get driver profile by email",
+        "description": "Fetches driver profile details using email.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Driver profile fetched successfully"
+          },
+          "400": {
+            "description": "Invalid email provided"
+          },
+          "404": {
+            "description": "Driver profile not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/DriverProfile/ChangeStatus/{id}": {
+      "put": {
+        "tags": [
+          "DriverProfile"
+        ],
+        "summary": "Change driver status",
+        "description": "Updates driver profile status by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDriverStatusDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDriverStatusDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDriverStatusDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Driver status updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID or data provided"
+          },
+          "404": {
+            "description": "Driver profile not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/DriverProfile/Update/{id}": {
+      "put": {
+        "tags": [
+          "DriverProfile"
+        ],
+        "summary": "Update driver profile",
+        "description": "Updates driver profile information by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDriverProfile"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDriverProfile"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDriverProfile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Driver profile updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID or data provided"
+          },
+          "404": {
+            "description": "Driver profile not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Home": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Item": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "responses": {
+          "200": {
+            "description": "API is working successfully."
+          }
+        }
+      }
+    },
+    "/api/Item/AddItem": {
+      "post": {
+        "tags": [
+          "Item"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateandUpdateItemDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateandUpdateItemDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateandUpdateItemDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item created successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Item/GetAll": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Item/GetItemById/{id}": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item retrieved successfully."
+          },
+          "400": {
+            "description": "Invalid ID."
+          },
+          "404": {
+            "description": "Item not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Item/GetItemByCategoryName/{Name}": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "parameters": [
+          {
+            "name": "Name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[A-Za-z]*$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Items retrieved successfully."
+          },
+          "400": {
+            "description": "Category name is required."
+          },
+          "404": {
+            "description": "Category not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Item/GetItemByMerchantEmail/{Email}": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Items retrieved successfully."
+          },
+          "400": {
+            "description": "Merchant email is required."
+          },
+          "404": {
+            "description": "Merchant not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Item/UpdateItem/{id}": {
+      "put": {
+        "tags": [
+          "Item"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateandUpdateItemDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateandUpdateItemDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateandUpdateItemDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item updated successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "404": {
+            "description": "Item not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Item/DeleteItem/{id}": {
+      "delete": {
+        "tags": [
+          "Item"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item deleted successfully."
+          },
+          "400": {
+            "description": "Invalid ID."
+          },
+          "404": {
+            "description": "Item not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Order": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Check Order API health",
+        "description": "This endpoint is used to test if the Order API is working correctly.",
+        "responses": {
+          "200": {
+            "description": "API is working successfully"
+          }
+        }
+      }
+    },
+    "/api/Order/Create": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Create a new order",
+        "description": "This endpoint allows you to create a new order with full details.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateOrder"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateOrder"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order created successfully"
+          },
+          "400": {
+            "description": "Invalid order data"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Order/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Delete an existing order",
+        "description": "This endpoint deletes a specific order by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order deleted successfully"
+          },
+          "400": {
+            "description": "Invalid order ID"
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Order/GetById/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get order details",
+        "description": "This endpoint retrieves a specific order's details using its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid order ID"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/api/Order/GetAllOrders": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get all orders",
+        "description": "This endpoint retrieves all orders from the database.",
+        "responses": {
+          "200": {
+            "description": "Orders retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Order/GetCustomerOrderCountAsync/{email}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get number of customer orders",
+        "description": "This endpoint retrieves the total number of orders placed by a specific customer using their email.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order count retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid email"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Order/GetOrdersByCustomerEmailAsync/{CustomerEmail}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get customer orders",
+        "description": "This endpoint retrieves all orders for a specific customer using their email.",
+        "parameters": [
+          {
+            "name": "CustomerEmail",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Orders retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid email"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Order/GetOrdersByMerchantEmail/{email}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get merchant orders",
+        "description": "This endpoint retrieves all orders received by a specific merchant using their email.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Orders retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid email"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Order/SearchOrders": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Search orders",
+        "description": "This endpoint allows searching for orders using multiple filters such as customer, merchant, or status.",
+        "parameters": [
+          {
+            "name": "CustomerEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MerchantEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ItemId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Orders retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Order/Update/{id}": {
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Update an existing order",
+        "description": "Updates an existing order using its ID and returns the updated details.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateOrder"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateOrder"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order updated successfully"
+          },
+          "400": {
+            "description": "Invalid order data"
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Payment": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Check API Health",
+        "description": "Returns a simple confirmation message to check if the Payment API is working.",
+        "responses": {
+          "200": {
+            "description": "Payment API is working successfully."
+          }
+        }
+      }
+    },
+    "/api/Payment/Create": {
+      "post": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Create a new payment",
+        "description": "Creates a new payment record based on the provided data.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment created successfully."
+          },
+          "400": {
+            "description": "Invalid input data."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Payment/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Delete a payment",
+        "description": "Deletes a payment record based on its unique ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment deleted successfully."
+          },
+          "400": {
+            "description": "Invalid Payment ID."
+          },
+          "404": {
+            "description": "Payment not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Payment/Update/{id}": {
+      "put": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Update a payment",
+        "description": "Updates the details of an existing payment record.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePaymentDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePaymentDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePaymentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment updated successfully."
+          },
+          "400": {
+            "description": "Invalid Payment ID or data."
+          },
+          "404": {
+            "description": "Payment not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Payment/GetAll": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Get all payments",
+        "description": "Fetches a list of all payment records.",
+        "responses": {
+          "200": {
+            "description": "List of all payments."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Payment/GetById/{id}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Get payment by ID",
+        "description": "Fetches a specific payment by its unique ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment found successfully."
+          },
+          "400": {
+            "description": "Invalid Payment ID."
+          },
+          "404": {
+            "description": "Payment not found."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Payment/SearchPayments": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Search payments",
+        "description": "Searches for payments based on filters like amount, date, or email.",
+        "parameters": [
+          {
+            "name": "CustomerEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Method",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/PaymentMethodEnum"
+            }
+          },
+          {
+            "name": "PaymentStatus",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/PaymentStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payments matching the criteria."
+          },
+          "400": {
+            "description": "Invalid search parameters."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Payment/GetPaymentsByCustomerEmail/{Email}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Get Payments By  Customer Email",
+        "description": "Get Payments By  Customer Email.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Of Payments  Returned."
+          },
+          "400": {
+            "description": "Invalid Email Customer ."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Payment/GetPaymentsByMerchantEmail/{Email}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Get Payments By  Merchant Email",
+        "description": "Get Payments By  Merchant Email.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Of Payments  Returned."
+          },
+          "400": {
+            "description": "Invalid Email Merchant ."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Reviews": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Check Reviews API health",
+        "description": "Returns a simple message to confirm Reviews API is working.",
+        "responses": {
+          "200": {
+            "description": "API is up and running"
+          }
+        }
+      }
+    },
+    "/api/Reviews/AddReview": {
+      "post": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Add a new review",
+        "description": "Creates a new review for a specific trip, customer, or driver.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReviewDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReviewDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReviewDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review created successfully"
+          },
+          "400": {
+            "description": "Invalid review data"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/DeleteReview/{id}": {
+      "delete": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Delete review",
+        "description": "Deletes an existing review by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review deleted successfully"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/GetById/{id}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get review by ID",
+        "description": "Retrieves a specific review by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review retrieved successfully"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/GetAll": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get all reviews",
+        "description": "Retrieves a list of all reviews in the system.",
+        "responses": {
+          "200": {
+            "description": "Reviews retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/GetCustomerReviewsAsync/{Email}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get customer reviews",
+        "description": "Retrieves all reviews submitted by a specific customer.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer reviews retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/DriverReviewsAsync/{Email}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get driver reviews",
+        "description": "Retrieves all reviews for a specific driver.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Driver reviews retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/GetDriverAverageRatingAsync/{Email}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get driver's average rating",
+        "description": "Calculates and returns the average rating for a specific driver.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Driver average rating calculated successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/GetCustomerReviewsCountAsync/{Email}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get customer reviews count",
+        "description": "Returns the total number of reviews submitted by a specific customer.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer reviews count retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/GetDriverReviewsCountAsync/{Email}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get driver reviews count",
+        "description": "Returns the total number of reviews for a specific driver.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Driver reviews count retrieved successfully"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/Reviews/UpdateReviewAsync/{id}": {
+      "put": {
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Update review",
+        "description": "Updates an existing review by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReviewDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReviewDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReviewDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review updated successfully"
+          },
+          "400": {
+            "description": "Invalid review data"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/api/RideRequests": {
+      "get": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "API Status Check",
+        "description": "Verify if the Ride Request API is working.",
+        "responses": {
+          "200": {
+            "description": "RideR equest API is up and running."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/Create": {
+      "post": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Create a new Ride Request ",
+        "description": "Creates a new Ride Request based on the provided details.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRideRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRideRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRideRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ride Request created successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request data provided."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/DeleteRideRequest/{id}": {
+      "delete": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Delete a Ride Request",
+        "description": "Deletes a Ride Request by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip deleted successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/AcceptRideRequest/{id}": {
+      "put": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Accept a Ride Request",
+        "description": "Accept a Ride Request by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip Accepted successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/CancelRideRequest/{id}": {
+      "put": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Canceled a Ride Request",
+        "description": "Canceled a Ride Request by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip Canceled successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/RejectRideRequest/{id}": {
+      "put": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Reject a Ride Request",
+        "description": "Reject a Ride Request by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Rejected successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/GetAcceptedRequests": {
+      "get": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Get List of Accepted Requests",
+        "description": "Get All Requests Accepted ",
+        "responses": {
+          "200": {
+            "description": "List Of Accepted Requests "
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/GetCompletedRequests": {
+      "get": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Get List of Completed Requests",
+        "description": "Get All Requests Completed ",
+        "responses": {
+          "200": {
+            "description": "List Of Completed Requests "
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/GetPendingRequests": {
+      "get": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Get List of Pending Requests",
+        "description": "Get All Requests Pending ",
+        "responses": {
+          "200": {
+            "description": "List Of Pending Requests "
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/ListRideRequests": {
+      "get": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Get List of  Requests",
+        "description": "Get All Requests  ",
+        "responses": {
+          "200": {
+            "description": "List Of  Requests "
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/RideRequestDetails/{id}": {
+      "get": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Get a Ride Request ",
+        "description": "Get a Ride Request by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Retrieved successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/SearchRideRequests": {
+      "get": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Get a Ride Request ",
+        "description": "Get a Ride Request by its search.",
+        "parameters": [
+          {
+            "name": "RiderEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Gated successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/RideRequests/UpdateRideRequest/{id}": {
+      "put": {
+        "tags": [
+          "RideRequests"
+        ],
+        "summary": "Update a Ride Request ",
+        "description": "Update a Ride Request by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRideRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRideRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRideRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request Updated successfully."
+          },
+          "400": {
+            "description": "Invalid Ride Request ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "API Status Check",
+        "description": "Verify if the Trip API is working.",
+        "responses": {
+          "200": {
+            "description": "Trip API is up and running."
+          }
+        }
+      }
+    },
+    "/api/Trip/CreateTrip": {
+      "post": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Create a new trip",
+        "description": "Creates a new trip based on the provided details.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTripDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTripDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTripDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Trip created successfully."
+          },
+          "400": {
+            "description": "Invalid trip data provided."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip/DeleteTrip/{id}": {
+      "delete": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Delete a trip",
+        "description": "Deletes a trip by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip deleted successfully."
+          },
+          "400": {
+            "description": "Invalid trip ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip/GetTripsbydriverEmail/{Email}": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Get trips by driver email",
+        "description": "Retrieves all trips assigned to a specific driver.",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trips retrieved successfully."
+          },
+          "400": {
+            "description": "Driver email cannot be null."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip/GetAllTrips": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Get all trips",
+        "description": "Fetches a list of all available trips.",
+        "responses": {
+          "200": {
+            "description": "Trips retrieved successfully."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip/GetTripDetailsAsync/{id}": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Get trip details",
+        "description": "Fetches detailed information for a specific trip by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip details retrieved successfully."
+          },
+          "400": {
+            "description": "Invalid trip ID."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip/SearchTrip": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Search trips",
+        "description": "Searches trips using filtering parameters.",
+        "parameters": [
+          {
+            "name": "DriverEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "RiderEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "StatausTrip",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/StatausTrip"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trips retrieved successfully."
+          },
+          "400": {
+            "description": "Invalid search criteria."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip/UpdateTripAsync/{id}": {
+      "put": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Update a trip",
+        "description": "Updates the details of an existing trip.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTripDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTripDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTripDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Trip updated successfully."
+          },
+          "400": {
+            "description": "Invalid input data."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/Trip/UpdateTripStatusAsync/{id}": {
+      "put": {
+        "tags": [
+          "Trip"
+        ],
+        "summary": "Update trip status",
+        "description": "Updates the status of an existing trip.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTripStatusDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTripStatusDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTripStatusDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Trip status updated successfully."
+          },
+          "400": {
+            "description": "Invalid status update request."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/User": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Check if User API is working",
+        "responses": {
+          "200": {
+            "description": "User API is working."
+          }
+        }
+      }
+    },
+    "/api/User/SignUpasCustomer": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Creates a new Customer ",
+        "description": "This endpoint allows you to create a new User and store it in the database.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpDTOAsCustomer"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpDTOAsCustomer"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpDTOAsCustomer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User Added Successfully"
+          },
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "500": {
+            "description": "An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/api/User/SignUpasDriver": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Creates a new Driver ",
+        "description": "This endpoint allows you to create a new Driver and store it in the database.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Email",
+                  "Image",
+                  "Name",
+                  "Password",
+                  "Phone",
+                  "PlateNumber",
+                  "VehicleType"
+                ],
+                "type": "object",
+                "properties": {
+                  "VehicleType": {
+                    "maxLength": 50,
+                    "minLength": 3,
+                    "type": "string"
+                  },
+                  "PlateNumber": {
+                    "maxLength": 20,
+                    "minLength": 5,
+                    "type": "string"
+                  },
+                  "Image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Status": {
+                    "$ref": "#/components/schemas/DriverStatus"
+                  },
+                  "Name": {
+                    "maxLength": 70,
+                    "minLength": 3,
+                    "type": "string"
+                  },
+                  "Phone": {
+                    "type": "string",
+                    "format": "tel"
+                  },
+                  "Email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "Password": {
+                    "type": "string",
+                    "format": "password"
+                  },
+                  "Address": {
+                    "type": "string"
+                  },
+                  "City": {
+                    "type": "string"
+                  },
+                  "Region": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "VehicleType": {
+                  "style": "form"
+                },
+                "PlateNumber": {
+                  "style": "form"
+                },
+                "Image": {
+                  "style": "form"
+                },
+                "Status": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "Phone": {
+                  "style": "form"
+                },
+                "Email": {
+                  "style": "form"
+                },
+                "Password": {
+                  "style": "form"
+                },
+                "Address": {
+                  "style": "form"
+                },
+                "City": {
+                  "style": "form"
+                },
+                "Region": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Driver Added Successfully"
+          },
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "500": {
+            "description": "An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/api/User/SignUpasMerchant": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Creates a new Merchant ",
+        "description": "This endpoint allows you to create a new Merchant and store it in the database.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpasMerchant"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpasMerchant"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpasMerchant"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Merchant Added Successfully"
+          },
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "500": {
+            "description": "An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/api/User/Login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Log in  User",
+        "description": "This endpoint allows you to Log In  .",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid data provided"
+          },
+          "500": {
+            "description": "An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/api/User/DeleteUser": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete user",
+        "description": "Deletes a user by email.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/GetUserByEmail": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a User ",
+        "description": "Get a User by its Email .",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Returned successfully."
+          },
+          "400": {
+            "description": "Invalid User Email  ."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/User/GetAllUsers": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all users",
+        "description": "Fetch all users.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/UpdateUser": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update a User ",
+        "description": "Update a User by its Email .",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Updated successfully."
+          },
+          "400": {
+            "description": "Invalid User Email  ."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/User/GetUserRoles": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get  a User  ",
+        "description": "Get a Role OF User by its User ID {From Token} .",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Updated successfully."
+          },
+          "400": {
+            "description": "Invalid User ID  ."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/User/SendEmailVerification": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Send verification email",
+        "description": "Sends an email with a confirmation link.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/VerifyEmail": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get  a User  ",
+        "description": "Get a Role OF User by its User ID {From Token} .",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Updated successfully."
+          },
+          "400": {
+            "description": "Invalid User ID  ."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/api/User/SendEmailTOResetPassword": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Send Confirmation Email",
+        "description": "Sends confirmation email after registration.",
+        "parameters": [
+          {
+            "name": "userEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/ResetPassword": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Reset Password",
+        "description": "Resets user password using token.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "newPassword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/My Profile": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get  a User  ",
+        "description": "Get a Role OF User by its  Token .",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChangeDriverStatusDTO": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/DriverStatus"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateComplaintsdto": {
+        "required": [
+          "customerEmail",
+          "driverEmail",
+          "tripId"
+        ],
+        "type": "object",
+        "properties": {
+          "massege": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "driverEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "tripId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateDeliveryDTO": {
+        "required": [
+          "driverEmail",
+          "dropoffLat",
+          "dropoffLng",
+          "pickupLat",
+          "pickupLng",
+          "status",
+          "tripId"
+        ],
+        "type": "object",
+        "properties": {
+          "pickupLat": {
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number",
+            "format": "double"
+          },
+          "pickupLng": {
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number",
+            "format": "double"
+          },
+          "dropoffLat": {
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number",
+            "format": "double"
+          },
+          "dropoffLng": {
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DeliveryStatus"
+          },
+          "driverEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "tripId": {
+            "maximum": 1000000,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateDriverProfile": {
+        "required": [
+          "driverEmail",
+          "driverStatus",
+          "licenseImagePath",
+          "plateNumber",
+          "vehicleType"
+        ],
+        "type": "object",
+        "properties": {
+          "vehicleType": {
+            "minLength": 3,
+            "type": "string"
+          },
+          "plateNumber": {
+            "minLength": 5,
+            "type": "string"
+          },
+          "licenseImagePath": {
+            "minLength": 1,
+            "type": "string",
+            "format": "binary"
+          },
+          "driverStatus": {
+            "$ref": "#/components/schemas/DriverStatus"
+          },
+          "driverEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateOrUpdateCategoryDTO": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateOrUpdateOrder": {
+        "required": [
+          "customerEmail",
+          "itemName",
+          "orderDate",
+          "paymentMethod",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "orderDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "totalAmount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "itemName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodEnum"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "customerEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatePaymentDTO": {
+        "required": [
+          "paymentMethod",
+          "paymentStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodEnum"
+          },
+          "paymentStatus": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          },
+          "tripID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customerEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "merchantEmail": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateReviewDTO": {
+        "required": [
+          "customerUserEmail",
+          "driverEmail",
+          "rating",
+          "tripID"
+        ],
+        "type": "object",
+        "properties": {
+          "tripID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customerUserEmail": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "driverEmail": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rating": {
+            "$ref": "#/components/schemas/Rating"
+          },
+          "message": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateRideRequestDTO": {
+        "required": [
+          "destinationLat",
+          "destinationLng",
+          "pickupLat",
+          "pickupLng",
+          "riderEmail",
+          "rideRequestStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "riderEmail": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pickupLat": {
+            "type": "number",
+            "format": "double"
+          },
+          "pickupLng": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationLat": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationLng": {
+            "type": "number",
+            "format": "double"
+          },
+          "rideRequestStatus": {
+            "$ref": "#/components/schemas/RideRequestsStatus"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTripDTO": {
+        "required": [
+          "carImagePath",
+          "distanceKm",
+          "driverEmail",
+          "durationMin",
+          "endTime",
+          "riderEmail",
+          "rideRequestsStatus",
+          "startTime",
+          "statausTrip",
+          "totalCost"
+        ],
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "distanceKm": {
+            "maximum": 10000,
+            "minimum": 0.1,
+            "type": "number",
+            "format": "double"
+          },
+          "durationMin": {
+            "maximum": 1440,
+            "minimum": 1,
+            "type": "number",
+            "format": "double"
+          },
+          "totalCost": {
+            "maximum": 100000,
+            "minimum": 1,
+            "type": "number",
+            "format": "double"
+          },
+          "statausTrip": {
+            "$ref": "#/components/schemas/StatausTrip"
+          },
+          "carImagePath": {
+            "minLength": 1,
+            "type": "string",
+            "format": "binary"
+          },
+          "driverEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "riderEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "rideRequestId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "rideRequestsStatus": {
+            "$ref": "#/components/schemas/RideRequestsStatus"
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateandUpdateItemDTO": {
+        "required": [
+          "categoryName",
+          "merchantEmail",
+          "name",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "price": {
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          },
+          "categoryName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "merchantEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeliveryStatus": {
+        "enum": [
+          "Pending",
+          "PickedUp",
+          "Delivered"
+        ],
+        "type": "string"
+      },
+      "DriverStatus": {
+        "enum": [
+          "Pending",
+          "Active",
+          "Suspended",
+          "Rejected"
+        ],
+        "type": "string"
+      },
+      "GetCategoryWithItems": {
+        "required": [
+          "categoryName"
+        ],
+        "type": "object",
+        "properties": {
+          "categoryName": {
+            "minLength": 2,
+            "type": "string"
+          },
+          "itemsNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "itemsName": {
+            "type": "string",
+            "nullable": true
+          },
+          "quanitity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginDTO": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string",
+            "format": "password"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderStatus": {
+        "enum": [
+          "Pending",
+          "Accepted",
+          "InDelivery",
+          "Completed"
+        ],
+        "type": "string"
+      },
+      "PaymentMethodEnum": {
+        "enum": [
+          "Cash",
+          "Visa"
+        ],
+        "type": "string"
+      },
+      "PaymentStatus": {
+        "enum": [
+          "Pending",
+          "Completed",
+          "Cancelled"
+        ],
+        "type": "string"
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Rating": {
+        "enum": [
+          "OneStar",
+          "TwoStars",
+          "ThreeStars",
+          "FourStars",
+          "FiveStars"
+        ],
+        "type": "string"
+      },
+      "ResolveComplaintDTO": {
+        "required": [
+          "isResolved"
+        ],
+        "type": "object",
+        "properties": {
+          "isResolved": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RideRequestsStatus": {
+        "enum": [
+          "Pending",
+          "Accepted",
+          "Rejected",
+          "Completed"
+        ],
+        "type": "string"
+      },
+      "SignUpDTOAsCustomer": {
+        "required": [
+          "email",
+          "name",
+          "password",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 70,
+            "minLength": 3,
+            "type": "string"
+          },
+          "phone": {
+            "minLength": 1,
+            "type": "string",
+            "format": "tel"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string",
+            "format": "password"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SignUpasMerchant": {
+        "required": [
+          "address",
+          "email",
+          "latitude",
+          "longitude",
+          "name",
+          "password",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 70,
+            "minLength": 3,
+            "type": "string"
+          },
+          "phone": {
+            "minLength": 1,
+            "type": "string",
+            "format": "tel"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string",
+            "format": "password"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StatausTrip": {
+        "enum": [
+          "Pending",
+          "Completed",
+          "Accepted",
+          "cancelled"
+        ],
+        "type": "string"
+      },
+      "UpdateComplaintsdto": {
+        "required": [
+          "customerEmail",
+          "driverEmail",
+          "tripId"
+        ],
+        "type": "object",
+        "properties": {
+          "massege": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "driverEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "tripId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isResolved": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateDeliveryDTO": {
+        "required": [
+          "driverEmail",
+          "dropoffLat",
+          "dropoffLng",
+          "pickupLat",
+          "pickupLng",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "pickupLat": {
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number",
+            "format": "double"
+          },
+          "pickupLng": {
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number",
+            "format": "double"
+          },
+          "dropoffLat": {
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number",
+            "format": "double"
+          },
+          "dropoffLng": {
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DeliveryStatus"
+          },
+          "driverEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "tripId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateDriverProfile": {
+        "type": "object",
+        "properties": {
+          "vehicleType": {
+            "type": "string",
+            "nullable": true
+          },
+          "plateNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "licenseImagePath": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          },
+          "rating": {
+            "$ref": "#/components/schemas/Rating"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePaymentDTO": {
+        "required": [
+          "paymentMethod",
+          "paymentStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodEnum"
+          },
+          "paymentStatus": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateReviewDTO": {
+        "required": [
+          "rating"
+        ],
+        "type": "object",
+        "properties": {
+          "rating": {
+            "$ref": "#/components/schemas/Rating"
+          },
+          "message": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateRideRequestDTO": {
+        "type": "object",
+        "properties": {
+          "destinationLat": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "destinationLng": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "riderEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateTripDTO": {
+        "required": [
+          "endTime",
+          "startTime",
+          "statausTrip"
+        ],
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "distanceKm": {
+            "maximum": 10000,
+            "minimum": 0.1,
+            "type": "number",
+            "format": "double"
+          },
+          "durationMin": {
+            "maximum": 1440,
+            "minimum": 1,
+            "type": "number",
+            "format": "double"
+          },
+          "totalCost": {
+            "maximum": 100000,
+            "minimum": 1,
+            "type": "number",
+            "format": "double"
+          },
+          "statausTrip": {
+            "$ref": "#/components/schemas/StatausTrip"
+          },
+          "driverEmail": {
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateTripStatusDTO": {
+        "required": [
+          "statausTrip"
+        ],
+        "type": "object",
+        "properties": {
+          "statausTrip": {
+            "$ref": "#/components/schemas/StatausTrip"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateUserDTO": {
+        "required": [
+          "email",
+          "name",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "phone": {
+            "minLength": 1,
+            "type": "string",
+            "format": "tel"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
