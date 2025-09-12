@@ -30,8 +30,10 @@ A **clean, modular Web API** for an Uber-like system, built with **ASP.NET Core*
 * **.NET 7/8 (C#)**
 * **ASP.NET Core Web API**
 * **Entity Framework Core**
-* **SQL Server / PostgreSQL** (or any EF Core compatible DB)
+* **SQL Server 
 * **Swagger (Swashbuckle)** for API docs
+* Caching With Redis
+* Auto Mapping
 
 ---
 
