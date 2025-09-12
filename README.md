@@ -22,6 +22,8 @@ A **clean, modular Web API** for an Uber-like system, built with **ASP.NET Core*
 ✅ ASP.NET Core Web API ready to run
 ✅ Configurable via `appsettings.json`
 ✅ Swagger/OpenAPI support for API documentation
+✅ Swagger/OpenAPI support for API documentation
+✅ Identity + JWT (for future authentication/authorization)
 
 ---
 
@@ -33,7 +35,10 @@ A **clean, modular Web API** for an Uber-like system, built with **ASP.NET Core*
 * **SQL Server 
 * **Swagger (Swashbuckle)** for API docs
 * Caching With Redis
-* Auto Mapping
+* AutoMapper & FluentValidation for cleaner DTO handling
+* authentication / authorization
+* SignalR (planned for real-time rides & notifications)
+* Serilog for logging
 
 ---
 
