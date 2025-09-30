@@ -34,26 +34,7 @@ namespace Uber.Uber
 
         }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    base.OnModelCreating(builder);
 
-
-        //    builder.Entity<IdentityUserRole<string>>()
-        //        .HasOne<User>()
-        //        .WithMany(u => u.UserRoles)
-        //        .HasForeignKey(ur => ur.UserId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-
-        //    builder.Entity<IdentityUserRole<string>>()
-        //        .HasOne<RoleApp>()
-        //        .WithMany(r => r.UserRoles)
-        //        .HasForeignKey(ur => ur.RoleId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-
-
-
-
-        //}
     }
+
 }
